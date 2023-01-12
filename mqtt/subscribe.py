@@ -26,7 +26,9 @@ async def run():
     await server.bootstrap([bootstrap_node])
 
     result = await server.get(key)
+
     #print("Get result:", result)
+
     server.stop()
     topic,newDate=result.split()
     return topic,newDate
@@ -57,3 +59,5 @@ if parseNewDate>parseLastDate:
     client.disconnect()
 else:
     print("Data not updated")
+
+
