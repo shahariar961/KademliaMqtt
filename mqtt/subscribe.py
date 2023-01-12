@@ -7,6 +7,7 @@ import datetime
 from dateutil.parser import parse
 fileName="date.txt"
 delimiter='='
+newDate=''
 file = open(fileName, 'r')
 newDate=str(datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
 def findValue(fullString):
@@ -21,43 +22,43 @@ node="127.0.0.1"
 port="8469"
 async def run():
     server = Server()
-    await server.listen(8473,interface="127.0.0.1")
+    await server.listen(8491,interface="127.0.0.1")
     bootstrap_node = (node, int(port))
     await server.bootstrap([bootstrap_node])
 
     result = await server.get(key)
 
-    #print("Get result:", result)
+    print("Get result:", result)
 
     server.stop()
     topic,newDate=result.split()
-    return topic,newDate
+    parseLastDate=parse(lastDate)
+    parseNewDate=parse(newDate)
+    if parseNewDate>parseLastDate:
+        def onMessage(client,userdata,msg):
+            print(msg.topic + ":" + msg.payload.decode())
 
-topic,newDate=asyncio.run(run())
+        client=paho.Client("p2",clean_session=False)
+        client.on_message=onMessage
+        if client.connect("localhost",1884,60) !=0:
+            print("Could not connect")
+            sys.exit(-1)
+
+        client.subscribe("test")
+
+        try:
+            client.loop_start()
+        except:
+            print("Disconnect")
+        time.sleep(2)
+        client.disconnect()
+    else:
+        print("Data not updated")
 
 
 
-parseLastDate=parse(lastDate)
-parseNewDate=parse(newDate)
-if parseNewDate>parseLastDate:
-    def onMessage(client,userdata,msg):
-        print(msg.topic + ":" + msg.payload.decode())
+asyncio.run(run())
 
-    client=paho.Client("p2",clean_session=False)
-    client.on_message=onMessage
-    if client.connect("localhost",1883,60) !=0:
-        print("Could not connect")
-        sys.exit(-1)
 
-    client.subscribe("test")
-
-    try:
-        client.loop_start()
-    except:
-        print("Disconnect")
-    time.sleep(2)
-    client.disconnect()
-else:
-    print("Data not updated")
 
 

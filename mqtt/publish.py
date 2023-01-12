@@ -9,7 +9,7 @@ from kademlia.network import Server
 
 date=str(datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
 client=paho.Client("p1")
-if client.connect("localhost",1883,600) !=0:
+if client.connect("localhost",1884,600) !=0:
     print("Could not connect")
     sys.exit(-1)
 proximity=str(random.randint(1000,2000))
@@ -21,10 +21,10 @@ client.disconnect()
 
 key= "key"
 node="127.0.0.1"
-port="8469"
+port="8468"
 async def run():
     server = Server()
-    await server.listen(8490,interface="127.0.0.1")
+    await server.listen(8493,interface="127.0.0.1")
     bootstrap_node = (node, int(port))
     await server.bootstrap([bootstrap_node])
     await server.set(key, topic)
