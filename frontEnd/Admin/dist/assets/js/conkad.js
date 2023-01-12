@@ -8,38 +8,26 @@ let messageTwo = document.getElementById("secTwo")
 // Button for starting the function to run the python file
 
 
-// We hade to create fictional function as the Ajax dont work for demonstation
-
-let prox = "114"
-let lux = "112"
-
-
-
+results = 1
 actionBtnProx.addEventListener("click", function(){
-
-$.ajax({
-  url: '../../../mqtt/subscribe.py',
-  type: 'GET',
-  success: function(data) {
-    debugger 
-    console.log(data);
-  },
-  error: function(error) {
-    console.error(error);
-  }
-});
- });
+    if (results >= 0) {
+        messageOne.innerHTML = "Results"
+    }
+    else {
+        messageOne.innerHTML = "Results not found"
+    }
+   
+})
 
 
-
-actionBtnLux.addEventListener("click", function(){
-  
-    // $.ajax({
-      // type: "POST",
-      // url: "kademlia/get.py",
-      // data: { param: text}
-    // }).done(function( o ) {
-       
-    //   return result
-      messageTwo.innerHTML = lux
-     });
+function loadXMLDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("secOne").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "get.py", true);
+  xhttp.send();
+}
