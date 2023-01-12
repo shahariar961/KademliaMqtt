@@ -1,7 +1,6 @@
 import paho.mqtt.client as paho
 import sys
 import time
-import logging
 import asyncio
 from kademlia.network import Server
 import datetime
@@ -9,6 +8,7 @@ from dateutil.parser import parse
 fileName="date.txt"
 delimiter='='
 file = open(fileName, 'r')
+newDate=str(datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
 def findValue(fullString):
     value= fullString[fullString.index(delimiter)+1:]
     value=value.replace(" ","")

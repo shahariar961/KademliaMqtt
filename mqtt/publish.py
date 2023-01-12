@@ -17,6 +17,8 @@ topic=proximity + " "+ date
 client.publish("test",topic,qos=1,retain=True)
 print("published")
 client.disconnect()
+with open('date.txt','w') as r:
+        r.write(date) 
 
 
 key= "key"
