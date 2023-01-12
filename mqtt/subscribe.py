@@ -16,20 +16,22 @@ def findValue(fullString):
 for line in file:
     if line.startswith('date'):
         lastDate=findValue(line)
-
+key= "key"
+node="127.0.0.1"
+port="8469"
 async def run():
     server = Server()
     await server.listen(8473,interface="127.0.0.1")
-    bootstrap_node = (sys.argv[1], int(sys.argv[2]))
+    bootstrap_node = (node, int(port))
     await server.bootstrap([bootstrap_node])
 
-    result = await server.get(sys.argv[3])
+    result = await server.get(key)
     print("Get result:", result)
     server.stop()
     topic,newDate=result.split()
     return topic,newDate
 
-asyncio.run(run())
+topic,newDate=asyncio.run(run())
 
 
 
