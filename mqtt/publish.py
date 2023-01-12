@@ -36,4 +36,4 @@ asyncio.run(run())
 
 with open('date.txt','r+') as f:
     f.seek(0)
-    f.write('')
+    f.write('date = ' + date)
