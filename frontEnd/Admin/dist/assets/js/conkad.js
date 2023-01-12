@@ -16,16 +16,22 @@ let lux = "112"
 
 
 actionBtnProx.addEventListener("click", function(){
-  
- // $.ajax({
-   // type: "POST",
-   // url: "kademlia/get.py",
-   // data: { param: text}
- // }).done(function( o ) {
-    
- //   return result
-   messageOne.innerHTML = prox
-  });
+
+$.ajax({
+  url: '../../../mqtt/subscribe.py',
+  type: 'GET',
+  success: function(data) {
+    debugger 
+    console.log(data);
+  },
+  error: function(error) {
+    console.error(error);
+  }
+});
+ });
+
+
+
 actionBtnLux.addEventListener("click", function(){
   
     // $.ajax({
